@@ -86,11 +86,10 @@ class DatabaseSeeder extends Seeder
 
         DB::table('students')->insert($students);
 
-    // 3. เสกตารางวิชาเรียน (courses) ให้รองรับโครงสร้างแบบละเอียด
-        DB::statement("CREATE TABLE IF NOT EXISTS `courses` (
+   DB::statement("CREATE TABLE IF NOT EXISTS `courses` (
             `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-            `course_code` varchar(20) NOT NULL,
-            `course_name` varchar(255) NOT NULL,
+            `course_id` varchar(20) NOT NULL,
+            `name` varchar(255) NOT NULL,
             `credits` int(11) NOT NULL,
             `day` varchar(10) NOT NULL,
             `start_time` time NOT NULL,
@@ -100,14 +99,14 @@ class DatabaseSeeder extends Seeder
             `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
             `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY (`id`),
-            UNIQUE KEY `courses_course_code_unique` (`course_code`)
+            UNIQUE KEY `courses_course_id_unique` (`course_id`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
 
-        // 4. ข้อมูลวิชาเรียนจริงทั้ง 14 วิชาตามโครงสร้างระบบจัดตารางเรียนของคุณ
+        // 4. ข้อมูลวิชาเรียนจริงทั้ง 14 วิชา ปรับ Key ให้ตรงกับหน้าบ้านแล้ว
         $courses = [
             [
-                'course_code' => '10301111',
-                'course_name' => 'การเขียนโปรแกรมเบื้องต้น (Introduction to Computer Programming)',
+                'course_id' => '10301111',
+                'name' => 'การเขียนโปรแกรมเบื้องต้น (Introduction to Computer Programming)',
                 'credits' => 3,
                 'day' => 'Mon',
                 'start_time' => '09:00:00',
@@ -116,8 +115,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'ปูพื้นฐานการเขียนโค้ด ลอจิกการคิด ตัวแปร เงื่อนไข การวนซ้ำ และฟังก์ชันพื้นฐาน ภาษาโปรแกรมมิ่งที่ใช้ python ส่วน editor คือ colab จากweb browser'
             ],
             [
-                'course_code' => '10301112',
-                'course_name' => 'เทคโนโลยีสารสนเทศและการสื่อสาร',
+                'course_id' => '10301112',
+                'name' => 'เทคโนโลยีสารสนเทศและการสื่อสาร',
                 'credits' => 3,
                 'day' => 'Tue',
                 'start_time' => '09:00:00',
@@ -126,8 +125,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'เรียนรู้ภาพรวมเทคโนโลยี ระบบเครือข่าย และการสื่อสารในยุคดิจิทัล'
             ],
             [
-                'course_code' => '10305108',
-                'course_name' => 'แคลคูลัสสำหรับวิทยาศาสตร์และเทคโนโลยี',
+                'course_id' => '10305108',
+                'name' => 'แคลคูลัสสำหรับวิทยาศาสตร์และเทคโนโลยี',
                 'credits' => 3,
                 'day' => 'Wed',
                 'start_time' => '13:00:00',
@@ -136,8 +135,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'ฟังก์ชัน ลิมิต อนุพันธ์ และการอินทิเกรตเพื่อการประยุกต์ใช้ทางวิทยาศาสตร์'
             ],
             [
-                'course_code' => '10301114',
-                'course_name' => 'องค์ประกอบและสถาปัตยกรรมคอมพิวเตอร์',
+                'course_id' => '10301114',
+                'name' => 'องค์ประกอบและสถาปัตยกรรมคอมพิวเตอร์',
                 'credits' => 3,
                 'day' => 'Thu',
                 'start_time' => '09:00:00',
@@ -146,8 +145,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'เจาะลึกระบบฮาร์ดแวร์ การทำงานของ CPU หน่วยความจำ และการประมวลผลระดับต่ำ'
             ],
             [
-                'course_code' => '10301141',
-                'course_name' => 'เครือข่ายคอมพิวเตอร์เบื้องต้น',
+                'course_id' => '10301141',
+                'name' => 'เครือข่ายคอมพิวเตอร์เบื้องต้น',
                 'credits' => 3,
                 'day' => 'Fri',
                 'start_time' => '13:00:00',
@@ -156,8 +155,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'เรียนรู้สถาปัตยกรรมเครือข่าย OSI Model, TCP/IP, การตั้งค่า IP Address และ Routing'
             ],
             [
-                'course_code' => '10301212',
-                'course_name' => 'การเขียนโปรแกรมและทักษะการแก้ปัญหา',
+                'course_id' => '10301212',
+                'name' => 'การเขียนโปรแกรมและทักษะการแก้ปัญหา',
                 'credits' => 3,
                 'day' => 'Mon',
                 'start_time' => '13:00:00',
@@ -166,8 +165,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'ฝึกทักษะการแก้ปัญหาขั้นสูง (Problem Solving) อัลกอริทึมแนวคิดเชิงคำนวณ'
             ],
             [
-                'course_code' => '10301113',
-                'course_name' => 'คณิตศาสตร์ดีสครีต',
+                'course_id' => '10301113',
+                'name' => 'คณิตศาสตร์ดีสครีต',
                 'credits' => 3,
                 'day' => 'Tue',
                 'start_time' => '13:00:00',
@@ -176,8 +175,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'ตรรกศาสตร์ เซต ความสัมพันธ์ ฟังก์ชัน กราฟ และคณิตศาสตร์เชิงไม่ต่อเนื่อง'
             ],
             [
-                'course_code' => '10301222',
-                'course_name' => 'โครงสร้างข้อมูลและอัลกอริทึม (Data Structures and Algorithms)',
+                'course_id' => '10301222',
+                'name' => 'โครงสร้างข้อมูลและอัลกอริทึม (Data Structures and Algorithms)',
                 'credits' => 3,
                 'day' => 'Wed',
                 'start_time' => '09:00:00',
@@ -186,8 +185,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'ศึกษาโครงสร้างข้อมูลแบบ Array, Linked List, Stack, Queue, Tree และการวัดประสิทธิภาพ Big O'
             ],
             [
-                'course_code' => '10301223',
-                'course_name' => 'ฐานข้อมูลโครงสร้างเชิงสัมพันธ์ (Relational Database)',
+                'course_id' => '10301223',
+                'name' => 'ฐานข้อมูลโครงสร้างเชิงสัมพันธ์ (Relational Database)',
                 'credits' => 3,
                 'day' => 'Thu',
                 'start_time' => '13:00:00',
@@ -196,8 +195,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'การออกแบบฐานข้อมูลเชิงสัมพันธ์, ER-Diagram, การทำ Normalization และการเขียน SQL Query ขั้นสูง'
             ],
             [
-                'course_code' => '10301231',
-                'course_name' => 'เว็บเทคโนโลยี (Web Technology)',
+                'course_id' => '10301231',
+                'name' => 'เว็บเทคโนโลยี (Web Technology)',
                 'credits' => 3,
                 'day' => 'Fri',
                 'start_time' => '09:00:00',
@@ -206,8 +205,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'การพัฒนาเว็บแอปพลิเคชันฝั่งหน้าบ้าน (Frontend) ด้วย HTML, CSS, JavaScript และ Framework สมัยใหม่'
             ],
             [
-                'course_code' => '10301225',
-                'course_name' => 'วิศวกรรมซอฟต์แวร์ (Software Engineering)',
+                'course_id' => '10301225',
+                'name' => 'วิศวกรรมซอฟต์แวร์ (Software Engineering)',
                 'credits' => 3,
                 'day' => 'Tue',
                 'start_time' => '09:00:00',
@@ -216,18 +215,18 @@ class DatabaseSeeder extends Seeder
                 'description' => 'กระบวนการผลิตซอฟต์แวร์ระดับอุตสาหกรรม การบริหารโครงการ การเก็บความต้องการ (Requirements) และการทดสอบระบบ'
             ],
             [
-                'course_code' => '10301221',
-                'course_name' => 'การวิเคราะห์และออกแบบเชิงวัตถุ (Object-Oriented Analysis and Design)',
+                'course_id' => '10301221',
+                'name' => 'การวิเคราะห์และออกแบบเชิงวัตถุ (Object-Oriented Analysis and Design)',
                 'credits' => 3,
                 'day' => 'Mon',
                 'start_time' => '09:00:00',
                 'end_time' => '12:00:00',
                 'color' => '#7c3aed',
-                'description' => 'ศึกษาและปฏิบัติเกี่ยวกับการเขียนโค้ดในรูปแบบ Class, Object, การสืบทอด (Inheritance) และการเขียน UML Diagram โดยใช ้ภาษาโปรแกรมมิ่ง Java '
+                'description' => 'ศึกษาและปฏิบัติเกี่ยวกับการเขียนโค้ดในรูปแบบ Class, Object, การสืบทอด (Inheritance) และการเขียน UML Diagram โดยใช้ภาษาโปรแกรมมิ่ง Java'
             ],
             [
-                'course_code' => '10301232',
-                'course_name' => 'การพัฒนาระบบฝั่งเซิร์ฟเวอร์ (Server-Side Development)',
+                'course_id' => '10301232',
+                'name' => 'การพัฒนาระบบฝั่งเซิร์ฟเวอร์ (Server-Side Development)',
                 'credits' => 3,
                 'day' => 'Thu',
                 'start_time' => '09:00:00',
@@ -236,8 +235,8 @@ class DatabaseSeeder extends Seeder
                 'description' => 'การพัฒนาเว็บฝั่งหลังบ้าน (Backend) การสร้าง API การจัดการ Session, Authentication และความปลอดภัย'
             ],
             [
-                'course_code' => '10301233',
-                'course_name' => 'การพัฒนาซอฟต์แวร์บนอุปกรณ์เคลื่อนที่',
+                'course_id' => '10301233',
+                'name' => 'การพัฒนาซอฟต์แวร์บนอุปกรณ์เคลื่อนที่',
                 'credits' => 3,
                 'day' => 'Wed',
                 'start_time' => '13:00:00',
